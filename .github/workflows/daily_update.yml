@@ -18,14 +18,15 @@ jobs:
         with:
           python-version: '3.11'  # Python 버전 설정
 
-      # GOOGLE_CREDENTIALS를 파일로 저장
+      # GOOGLE_CREDENTIALS을 파일로 저장
       - name: Write Google credentials to file
-        run: echo "${{ secrets.GOOGLE_CREDENTIALS }}" > "${{ github.workspace }}/google-credentials.json"
+        run: echo "${{ secrets.GOOGLE_CREDENTIALS }}" > google-credentials.json
 
-      # 서비스 계정 JSON 파일을 사용하여 인증 설정
-      - name: Set up Google credentials
+      # GOOGLE_APPLICATION_CREDENTIALS 환경 변수 설정
+      - name: Set up Google credentials environment variable
         run: |
-          export GOOGLE_APPLICATION_CREDENTIALS="${{ github.workspace }}/google-credentials.json"
+          export GOOGLE_APPLICATION_CREDENTIALS=${{ github.workspace }}/google-credentials.json
+          echo "GOOGLE_APPLICATION_CREDENTIALS=${{ github.workspace }}/google-credentials.json" >> $GITHUB_ENV
 
       # setuptools와 wheel 업데이트
       - name: Install setuptools and wheel
