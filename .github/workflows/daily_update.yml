@@ -45,7 +45,8 @@ jobs:
         run: |
           python script.py  # Google Colab 코드가 변환된 Python 스크립트 실행
 
-      # Google credentials 출력 (디버깅용)
-      - name: Print Google credentials for debugging
+      # 디버깅용으로 credentials 파일 출력 (파일로 저장 후 디버깅)
+      - name: Output Google credentials to file for debugging
         run: |
-          echo "${{ secrets.GOOGLE_CREDENTIALS }}"
+          echo "${{ secrets.GOOGLE_CREDENTIALS }}" > credentials-debug.json
+          cat credentials-debug.json  # credentials-debug.json 파일 출력 (디버깅용)
