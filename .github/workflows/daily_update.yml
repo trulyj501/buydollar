@@ -11,7 +11,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v2  # 소스 코드 체크아웃
 
       - name: Set up Python
         uses: actions/setup-python@v2
@@ -26,7 +26,6 @@ jobs:
       # GOOGLE_APPLICATION_CREDENTIALS 환경 변수 설정
       - name: Set up Google credentials environment variable
         run: |
-          export GOOGLE_APPLICATION_CREDENTIALS=${{ github.workspace }}/google-credentials.json
           echo "GOOGLE_APPLICATION_CREDENTIALS=${{ github.workspace }}/google-credentials.json" >> $GITHUB_ENV
 
       # setuptools와 wheel 업데이트
@@ -45,7 +44,8 @@ jobs:
         run: |
           python script.py  # Google Colab 코드가 변환된 Python 스크립트 실행
 
-      # 디버깅을 위한 인증 파일 출력은 보안상 제거
+      # 디버깅용으로 환경 변수 확인
       - name: Verify environment variable setup for Google credentials
         run: |
+          echo "GOOGLE_APPLICATION_CREDENTIALS=${{ github.workspace }}/google-credentials.json"
           echo "Google credentials environment variable is set up correctly"
