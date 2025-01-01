@@ -1,3 +1,4 @@
+# GitHub Actions Workflow 설정
 name: Daily Dollar Update
 
 on:
