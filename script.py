@@ -6,23 +6,15 @@ import pandas as pd
 import os
 import json
 
-# GitHub Actions에서 제공한 환경 변수로 인증 설정
-credentials_json = os.getenv('GOOGLE_CREDENTIALS')  # GitHub Secrets에 저장된 JSON 내용
+# GOOGLE_APPLICATION_CREDENTIALS 환경 변수를 통해 인증 파일 경로 설정
+credentials_file = os.getenv('GOOGLE_APPLICATION_CREDENTIALS')
 
-# 환경변수 값 출력 (디버깅용)
-if credentials_json is None or credentials_json.strip() == "":
-    raise ValueError("GOOGLE_CREDENTIALS 환경변수가 비어 있거나 올바르지 않습니다!")
+# 인증 파일 경로가 없으면 오류 발생
+if not credentials_file:
+    raise ValueError("GOOGLE_APPLICATION_CREDENTIALS 환경변수가 비어 있거나 올바르지 않습니다!")
 
-print("GOOGLE_CREDENTIALS:", credentials_json)  # 디버깅용
-
-scopes = [
-    "https://www.googleapis.com/auth/spreadsheets",
-    "https://www.googleapis.com/auth/drive"
-]
-
-# JSON 문자열을 파싱하여 인증 정보 객체 생성
-credentials_info = json.loads(credentials_json)
-credentials = Credentials.from_service_account_info(credentials_info, scopes=scopes)
+# 서비스 계정 JSON 파일을 사용하여 인증 설정
+credentials = Credentials.from_service_account_file(credentials_file)
 
 # Google Sheets 인증
 gc = gspread.authorize(credentials)
