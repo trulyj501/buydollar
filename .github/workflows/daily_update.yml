@@ -20,7 +20,8 @@ jobs:
 
       # GOOGLE_CREDENTIALS을 파일로 저장
       - name: Write Google credentials to file
-        run: echo "${{ secrets.GOOGLE_CREDENTIALS }}" > google-credentials.json
+        run: |
+          echo "${{ secrets.GOOGLE_CREDENTIALS }}" > google-credentials.json
 
       # GOOGLE_APPLICATION_CREDENTIALS 환경 변수 설정
       - name: Set up Google credentials environment variable
@@ -44,6 +45,7 @@ jobs:
         run: |
           python script.py  # Google Colab 코드가 변환된 Python 스크립트 실행
 
+      # Google credentials 출력 (디버깅용)
       - name: Print Google credentials for debugging
         run: |
           echo "${{ secrets.GOOGLE_CREDENTIALS }}"
