@@ -2,7 +2,7 @@ name: Daily Dollar Update
 
 on:
   schedule:
-    - cron: '0 8 * * *'  # 매일 오전 8시에 실행 (UTC 기준)
+    - cron: '0 23 * * *'  # 매일 UTC 시간으로 오후 11시에 실행 (한국 시간 오전 8시)
   workflow_dispatch:  # 수동으로 실행할 수 있는 옵션
 
 jobs:
