@@ -12,16 +12,21 @@ from google.oauth2.service_account import Credentials
 import requests  # API 호출을 위한 라이브러리
 from datetime import datetime, timedelta
 import pandas as pd
+import os
+import json
 
-# Google Sheets 인증
-credentials_path = "/path/to/your/service_account.json"  # 서비스 계정 JSON 파일 경로
+# GitHub Actions에서 제공한 환경 변수로 인증 설정
+credentials_json = os.getenv('GOOGLE_CREDENTIALS')  # GitHub Secrets에 저장된 JSON 내용
 scopes = [
     "https://www.googleapis.com/auth/spreadsheets",
     "https://www.googleapis.com/auth/drive"
 ]
 
-# 인증 설정
-credentials = Credentials.from_service_account_file(credentials_path, scopes=scopes)
+# JSON 문자열을 파싱하여 인증 정보 객체 생성
+credentials_info = json.loads(credentials_json)
+credentials = Credentials.from_service_account_info(credentials_info, scopes=scopes)
+
+# Google Sheets 인증
 gc = gspread.authorize(credentials)
 
 # Google Sheets 열기
