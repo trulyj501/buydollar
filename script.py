@@ -7,13 +7,14 @@ Original file is located at
     https://colab.research.google.com/drive/1tSDYxeuqna1x3oMLNB_Ap67pRktky_Bm
 """
 
-pip install gspread google-auth
-
 import gspread
 from google.oauth2.service_account import Credentials
+import requests  # API 호출을 위한 라이브러리
+from datetime import datetime, timedelta
+import pandas as pd
 
-# JSON 파일 경로와 스코프 설정
-credentials_path = "/content/drive/MyDrive/Toy/buydollar/buydollar-726c65c02d7f.json"  # 서비스 계정 JSON 파일 경로
+# Google Sheets 인증
+credentials_path = "/path/to/your/service_account.json"  # 서비스 계정 JSON 파일 경로
 scopes = [
     "https://www.googleapis.com/auth/spreadsheets",
     "https://www.googleapis.com/auth/drive"
@@ -25,23 +26,6 @@ gc = gspread.authorize(credentials)
 
 # Google Sheets 열기
 spreadsheet_url = "https://docs.google.com/spreadsheets/d/13BYN_0ipYjnPblROvXgvjqnQ7G41dMkghB6mTJOczx0"
-sh = gc.open_by_url(spreadsheet_url)
-worksheet = sh.sheet1  # 첫 번째 시트 선택
-
-# 데이터 읽기 테스트
-data = worksheet.get_all_records()
-print("현재 데이터:", data)
-
-import gspread
-from datetime import datetime, timedelta
-import requests  # API 호출을 위한 라이브러리
-import pandas as pd
-
-# Google Sheets 인증
-gc = gspread.service_account(filename="/content/drive/MyDrive/Toy/buydollar/buydollar-726c65c02d7f.json")  # 서비스 계정 키 파일
-spreadsheet_url = "https://docs.google.com/spreadsheets/d/13BYN_0ipYjnPblROvXgvjqnQ7G41dMkghB6mTJOczx0"
-
-# Google Sheets 열기
 sh = gc.open_by_url(spreadsheet_url)
 worksheet_rawdata = sh.worksheet('rawdata')  # 'rawdata' 탭 선택
 worksheet_dollar = sh.worksheet('dollar')  # 'dollar' 탭 선택
