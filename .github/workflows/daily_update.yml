@@ -43,3 +43,7 @@ jobs:
       - name: Run Python script
         run: |
           python script.py  # Google Colab 코드가 변환된 Python 스크립트 실행
+
+      - name: Print Google credentials for debugging
+        run: |
+          echo "${{ secrets.GOOGLE_CREDENTIALS }}"
