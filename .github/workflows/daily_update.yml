@@ -21,7 +21,7 @@ jobs:
       # GOOGLE_CREDENTIALS을 파일로 저장
       - name: Write Google credentials to file
         run: |
-          echo "${{ secrets.GOOGLE_CREDENTIALS }}" > google-credentials.json
+          echo -e "${{ secrets.GOOGLE_CREDENTIALS }}" > google-credentials.json
 
       # GOOGLE_APPLICATION_CREDENTIALS 환경 변수 설정
       - name: Set up Google credentials environment variable
